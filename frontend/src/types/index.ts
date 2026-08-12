@@ -16,14 +16,15 @@ export interface AuthTokens {
 export interface LoginResponse extends AuthTokens {
   user: User;
 }
-
 export interface Course {
   id: number;
   title: string;
   description: string;
   category: number;
   is_published: boolean;
+  is_removed?: boolean;
   instructor?: number;
+  instructor_name?: string;
   price?: number;
 }
 
@@ -60,4 +61,9 @@ export interface CourseDetail extends Course {
 export interface Enrollment {
   id: number;
   course: number;
+}
+export interface DraftModule {
+  id: number;        // real backend id once saved
+  title: string;
+  lessons: { id: number; title: string }[];
 }
