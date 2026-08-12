@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Alert, Container, Card } from 'react-bootstrap';
 import * as authApi from '../../api/auth';
-import { Role } from '../../types';
+import type { Role } from '../../types';
 
 export default function Register() {
   const [username, setUsername] = useState('');

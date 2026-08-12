@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { LoginResponse, User, Role } from '../types';
+import type { LoginResponse, User, Role } from '../types';
 
 export const login = (username: string, password: string) =>
   apiClient.post<LoginResponse>('/auth/login/', { username, password });
