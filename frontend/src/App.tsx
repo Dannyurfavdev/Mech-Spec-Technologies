@@ -16,13 +16,15 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import Profile from './pages/Profile';
 import InstructorProfile from './pages/instructor/InstructorProfile';
 import ManageCourses from './pages/admin/ManageCourses';
+import Footer from './components/Footer';
 
 
 function App() {
   return (
   <> 
     <AppNavbar />
-    <Routes>
+    <main style={{ flex: 1, display: 'block' }}>
+     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -76,8 +78,10 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
       </Route>
     </Routes>
+    </main>
 
     <ChatWidget />
+    <Footer />
     </> 
   );
 }

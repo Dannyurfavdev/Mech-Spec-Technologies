@@ -41,7 +41,7 @@ export default function ManageUsers() {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Manage Users</h2>
         <Form.Select

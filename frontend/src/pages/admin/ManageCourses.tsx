@@ -46,7 +46,7 @@ export default function ManageCourses() {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <h2 className="mb-4">Manage Courses</h2>
 
       {error && <Alert variant="danger">{error}</Alert>}

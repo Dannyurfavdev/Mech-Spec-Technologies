@@ -40,7 +40,7 @@ export default function InstructorProfile() {
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
 
   return (
-    <Container style={{ maxWidth: '500px' }}>
+    <Container style={{ maxWidth: '500px' }} fluid>
       <h2 className="mb-4">Instructor Profile</h2>
       <Card>
         <Card.Body>

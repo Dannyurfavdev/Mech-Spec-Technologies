@@ -27,7 +27,7 @@ export default function EnrolledStudents() {
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
 
   return (
-    <Container>
+    <Container fluid>
       <h2 className="mb-4" style={{color: 'black'}}>Enrolled Students</h2>
       {error && <Alert variant="danger">{error}</Alert>}
 

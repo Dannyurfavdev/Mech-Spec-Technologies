@@ -103,7 +103,7 @@ export default function CreateCourse() {
 
   if (step === 'basic') {
     return (
-      <Container style={{ maxWidth: '600px' }}>
+      <Container style={{ maxWidth: '600px' }} fluid>
         <h2 className="mb-4">Create a New Course</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleCreateCourse}>

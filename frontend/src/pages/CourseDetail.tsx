@@ -80,7 +80,7 @@ export default function CourseDetail() {
   if (!course) return null;
 
   return (
-    <Container className="mb-5">
+    <Container className="mb-5" fluid>
       <h2>{course.title}</h2>
       {course.instructor_name && (
         <p className="text-muted">By {course.instructor_name}</p>

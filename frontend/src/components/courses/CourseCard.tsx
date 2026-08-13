@@ -12,7 +12,7 @@ export default function CourseCard({ course }: { course: Course }) {
           {course.description?.length > 100 ? '...' : ''}
         </Card.Text>
         {course.price !== undefined && (
-          <p className="fw-bold mb-2">KES {course.price}</p>
+          <p className="fw-bold mb-2">USD {course.price}</p>
         )}
         <Button as={Link as any} to={`/courses/${course.id}`} variant="primary">
           View Course
