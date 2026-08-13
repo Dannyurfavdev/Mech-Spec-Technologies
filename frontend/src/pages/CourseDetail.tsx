@@ -86,7 +86,7 @@ export default function CourseDetail() {
         <p className="text-muted">By {course.instructor_name}</p>
       )}
       {course.price !== undefined && (
-        <Badge bg="secondary" className="mb-3">KES {course.price}</Badge>
+        <Badge bg="secondary" className="mb-3">USD {course.price}</Badge>
       )}
 
       <p>{course.description}</p>
@@ -139,7 +139,7 @@ export default function CourseDetail() {
         </Modal.Header>
         <Modal.Body>
           <p>This is a simulated payment for <strong>{course.title}</strong>.</p>
-          {course.price !== undefined && <p>Amount: KES {course.price}</p>}
+          {course.price !== undefined && <p>Amount: USD {course.price}</p>}
           <p className="text-muted small">Reference: {paymentReference}</p>
         </Modal.Body>
         <Modal.Footer>

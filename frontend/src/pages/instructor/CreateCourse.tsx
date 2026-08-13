@@ -135,7 +135,7 @@ export default function CreateCourse() {
             </Col>
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Price (KES)</Form.Label>
+                <Form.Label>Price (USD)</Form.Label>
                 <Form.Control
                   type="number"
                   min="0"

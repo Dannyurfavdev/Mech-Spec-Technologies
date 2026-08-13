@@ -37,7 +37,7 @@ export default function MyCourses() {
             <Card.Body>
               <Card.Title>{enrollment.course_detail.title}</Card.Title>
               <p className="text-muted small mb-2">{enrollment.course_detail.category_name}</p>
-              <p className="fw-bold">KES {enrollment.course_detail.price}</p>
+              <p className="fw-bold">USD {enrollment.course_detail.price}</p>
               <Button
                 as={Link as any}
                 to={`/my-courses/${enrollment.course}`}
