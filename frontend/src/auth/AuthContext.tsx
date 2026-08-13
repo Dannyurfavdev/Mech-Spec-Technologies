@@ -6,7 +6,7 @@ import * as authApi from '../api/auth';
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<User>;
   logout: () => void;
 }
 
@@ -33,6 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('access', data.access);
     localStorage.setItem('refresh', data.refresh);
     setUser(data.user);
+    return data.user;
   };
 
   const logout = () => {

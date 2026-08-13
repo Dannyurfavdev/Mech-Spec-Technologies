@@ -25,3 +25,6 @@ export const addLesson = (courseId: number, moduleId: number, title: string, con
 
 export const publishCourse = (courseId: number) =>
   apiClient.patch(`/courses/instructor/courses/${courseId}/`, { is_published: true });
+
+export const getEnrolledStudents = (courseId: number) =>
+  apiClient.get(`/enrollments/instructor/courses/${courseId}/students/`);

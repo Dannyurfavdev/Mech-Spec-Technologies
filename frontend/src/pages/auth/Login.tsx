@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Alert, Container, Card } from 'react-bootstrap';
 import { useAuth } from '../../auth/AuthContext';
@@ -16,8 +17,15 @@ export default function Login() {
     setError('');
     setLoading(true);
     try {
-      await login(username, password);
-      navigate('/');
+      const loggedInUser = await login(username, password);
+
+      if (loggedInUser.role === 'admin') {
+        navigate('/admin');
+      } else if (loggedInUser.role === 'instructor') {
+        navigate('/instructor');
+      } else {
+        navigate('/');
+      }
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Invalid username or password');
     } finally {

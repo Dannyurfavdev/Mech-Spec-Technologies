@@ -25,13 +25,13 @@ export default function ManageUsers() {
     setActioningId(user.id);
     setError('');
     try {
-      if (user.is_active) {
-        await adminApi.suspendUser(user.id);
-      } else {
+      if (user.is_suspended) {
         await adminApi.activateUser(user.id);
+      } else {
+        await adminApi.suspendUser(user.id);
       }
       setUsers(users.map((u) =>
-        u.id === user.id ? { ...u, is_active: !u.is_active } : u
+        u.id === user.id ? { ...u, is_suspended: !u.is_suspended } : u
       ));
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Action failed.');
@@ -77,20 +77,20 @@ export default function ManageUsers() {
                 <td>{user.email}</td>
                 <td className="text-capitalize">{user.role}</td>
                 <td>
-                  <Badge bg={user.is_active ? 'success' : 'secondary'}>
-                    {user.is_active ? 'Active' : 'Suspended'}
+                  <Badge bg={user.is_suspended ? 'secondary' : 'success'}>
+                    {user.is_suspended ? 'Suspended' : 'Active'}
                   </Badge>
                 </td>
                 <td>
                   <Button
                     size="sm"
-                    variant={user.is_active ? 'outline-danger' : 'outline-success'}
+                    variant={user.is_suspended ? 'outline-success' : 'outline-danger'}
                     disabled={actioningId === user.id}
                     onClick={() => handleToggleStatus(user)}
                   >
                     {actioningId === user.id
                       ? '...'
-                      : user.is_active ? 'Suspend' : 'Activate'}
+                      : user.is_suspended ? 'Activate' : 'Suspend'}
                   </Button>
                 </td>
               </tr>

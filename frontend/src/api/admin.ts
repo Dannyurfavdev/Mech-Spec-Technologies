@@ -3,12 +3,26 @@ import type { User, Role } from '../types';
 import type { Course } from '../types';
 
 export interface PlatformStats {
-  total_users?: number;
-  total_students?: number;
-  total_instructors?: number;
-  total_courses?: number;
-  total_enrollments?: number;
-  [key: string]: number | undefined; // backend may return additional fields
+  users: {
+    total: number;
+    students: number;
+    instructors: number;
+    admins: number;
+    suspended: number;
+  };
+  courses: {
+    total_active: number;
+    published: number;
+    removed: number;
+  };
+  enrollments: {
+    total: number;
+  };
+  orders: {
+    total: number;
+    paid: number;
+    pending: number;
+  };
 }
 
 export const getUsers = (role?: Role) =>

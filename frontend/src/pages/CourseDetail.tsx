@@ -44,9 +44,14 @@ export default function CourseDetail() {
     setEnrollError('');
     try {
       const { data } = await enrollmentsApi.checkout(Number(id));
-      // Expecting something like { reference: "uuid-here" } from checkout
-      setPaymentReference(data.reference);
-      setShowPaymentModal(true);
+
+        if (!data.transaction) {
+          setEnrollError('You have a pending order for this course. Please contact support or try again.');
+          return;
+        }
+
+        setPaymentReference(data.transaction.reference);
+        setShowPaymentModal(true);
     } catch (err: any) {
       setEnrollError(err.response?.data?.detail || 'Enrollment failed. Please try again.');
     } finally {

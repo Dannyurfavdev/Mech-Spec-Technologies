@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, FormEvent, useEffect } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { Container, Form, Button, Alert, Card, ListGroup, Row, Col } from 'react-bootstrap';
 import * as instructorApi from '../../api/instructorCourses';
 import * as coursesApi from '../../api/courses';
@@ -24,7 +26,7 @@ export default function CreateCourse() {
   const [objectiveInput, setObjectiveInput] = useState('');
   const [modules, setModules] = useState<DraftModule[]>([]);
   const [moduleInput, setModuleInput] = useState('');
-  const [lessonInputs, setLessonInputs] = useState<Record<number, string>>({});
+  const [lessonInputs, setLessonInputs] = useState<Record<number, { title: string; content: string }>>({});
 
   useEffect(() => {
     coursesApi.getCategories().then((res) => setCategories(res.data)).catch(() => {});
@@ -74,16 +76,16 @@ export default function CreateCourse() {
   };
 
   const handleAddLesson = async (moduleId: number) => {
-    const lessonTitle = lessonInputs[moduleId];
-    if (!lessonTitle?.trim() || !courseId) return;
+    const lesson = lessonInputs[moduleId];
+    if (!lesson?.title?.trim() || !lesson?.content?.trim() || !courseId) return;
     try {
-      const { data } = await instructorApi.addLesson(courseId, moduleId, lessonTitle.trim());
+      const { data } = await instructorApi.addLesson(courseId, moduleId, lesson.title.trim(), lesson.content.trim());
       setModules(modules.map((m) =>
         m.id === moduleId
-          ? { ...m, lessons: [...m.lessons, { id: data.id, title: lessonTitle.trim() }] }
+          ? { ...m, lessons: [...m.lessons, { id: data.id, title: lesson.title.trim() }] }
           : m
       ));
-      setLessonInputs({ ...lessonInputs, [moduleId]: '' });
+      setLessonInputs({ ...lessonInputs, [moduleId]: { title: '', content: '' } });
     } catch {
       setError('Failed to add lesson.');
     }
@@ -186,14 +188,28 @@ export default function CreateCourse() {
                     <ListGroup.Item key={lesson.id}>{lesson.title}</ListGroup.Item>
                   ))}
                 </ListGroup>
-                <div className="d-flex gap-2">
-                  <Form.Control
-                    size="sm"
-                    placeholder="Lesson title"
-                    value={lessonInputs[mod.id] || ''}
-                    onChange={(e) => setLessonInputs({ ...lessonInputs, [mod.id]: e.target.value })}
-                  />
-                  <Button size="sm" onClick={() => handleAddLesson(mod.id)}>Add Lesson</Button>
+                <div className="d-flex flex-column gap-2">
+                    <Form.Control
+                      size="sm"
+                      placeholder="Lesson title"
+                      value={lessonInputs[mod.id]?.title || ''}
+                      onChange={(e) => setLessonInputs({
+                        ...lessonInputs,
+                        [mod.id]: { ...lessonInputs[mod.id], title: e.target.value, content: lessonInputs[mod.id]?.content || '' }
+                      })}
+                    />
+                    <Form.Control
+                      as="textarea"
+                      size="sm"
+                      rows={2}
+                      placeholder="Lesson content"
+                      value={lessonInputs[mod.id]?.content || ''}
+                      onChange={(e) => setLessonInputs({
+                        ...lessonInputs,
+                        [mod.id]: { ...lessonInputs[mod.id], content: e.target.value, title: lessonInputs[mod.id]?.title || '' }
+                      })}
+                    />
+                    <Button size="sm" onClick={() => handleAddLesson(mod.id)}>Add Lesson</Button>
                 </div>
               </Card.Body>
             </Card>

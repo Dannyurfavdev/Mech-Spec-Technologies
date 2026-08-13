@@ -25,11 +25,12 @@ export default function AppNavbar() {
         <BSNavbar.Collapse id="main-navbar">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Courses</Nav.Link>
-            {user && <Nav.Link as={Link} to={dashboardLink()}>Dashboard</Nav.Link>}
+            {user &&  <Nav.Link as={Link} to={dashboardLink()}>Dashboard</Nav.Link> }
           </Nav>
           <Nav>
             {user ? (
               <>
+                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                 <Nav.Link disabled>Hi, {user.username}</Nav.Link>
                 <Button variant="outline-light" size="sm" onClick={handleLogout}>
                   Log Out

@@ -8,9 +8,13 @@ import ManageUsers from './pages/admin/ManageUsers';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
 import CourseLearn from './pages/student/CourseLearn';
+import ChatWidget from './components/chatbot/ChatWidget';
 import MyCourses from './pages/student/MyCourses';
+import EnrolledStudents from './pages/instructor/EnrolledStudents';
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import Profile from './pages/Profile';
+import InstructorProfile from './pages/instructor/InstructorProfile';
 import ManageCourses from './pages/admin/ManageCourses';
 
 
@@ -49,6 +53,22 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={['instructor']} />}>
+      <Route path="/instructor" element={<InstructorDashboard />} />
+      <Route path="/instructor/courses/new" element={<CreateCourse />} />
+      <Route path="/instructor/courses/:courseId/students" element={<EnrolledStudents />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={['student', 'instructor', 'admin']} />}>
+      <Route path="/profile" element={<Profile />} />
+      </Route>
+      <Route element={<ProtectedRoute allowedRoles={['instructor']} />}>
+        <Route path="/instructor" element={<InstructorDashboard />} />
+        <Route path="/instructor/profile" element={<InstructorProfile />} />
+        <Route path="/instructor/courses/new" element={<CreateCourse />} />
+        <Route path="/instructor/courses/:courseId/students" element={<EnrolledStudents />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={['instructor']} />}>
         <Route path="/instructor" element={<InstructorDashboard />} />
       </Route>
       <Route path="/courses/:id" element={<CourseDetail />} />
@@ -56,6 +76,8 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
       </Route>
     </Routes>
+
+    <ChatWidget />
     </> 
   );
 }

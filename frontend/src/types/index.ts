@@ -5,7 +5,8 @@ export interface User {
   username: string;
   email: string;
   role: Role;
-  is_active?: boolean;
+  is_suspended?: boolean;
+  created_at?: string;
 }
 
 export interface AuthTokens {
@@ -69,17 +70,58 @@ export interface DraftModule {
 }
 
 export interface EnrolledCourse {
-  id: number;          // enrollment id
-  course: number;       // course id
-  course_title?: string;
-  course_price?: number;
-  enrolled_at?: string;
+  id: number;
+  course: number;
+  course_detail: {
+    id: number;
+    title: string;
+    slug: string;
+    price: string;
+    thumbnail: string | null;
+    is_published: boolean;
+    instructor: number;
+    instructor_name: string;
+    category: number;
+    category_name: string;
+    created_at: string;
+  };
+  enrolled_at: string;
 }
 
 export interface CourseProgress {
+  course: number;
   total_lessons: number;
-  completed_lessons: number;
-  percentage?: number;
+  completed_lesson_ids: number[];
+  completed_count: number;
+  percent_complete: number;
   modules?: Module[];
-  completed_lesson_ids?: number[];
+}
+
+export interface EnrolledStudent {
+  id: number;
+  student: {
+    id: number;
+    username: string;
+    email: string;
+    role: string;
+    is_suspended: boolean;
+    created_at: string;
+  };
+  enrolled_at: string;
+}
+export interface CheckoutResponse {
+  order: {
+    id: number;
+    course: number;
+    course_detail: any;
+    price_at_purchase: string;
+    status: string;
+    created_at: string;
+  };
+  transaction: {
+    id: number;
+    reference: string;
+    status: string;
+    order: number;
+  };
 }

@@ -16,13 +16,20 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  const statCards = [
-    { label: 'Total Users', value: stats?.total_users },
-    { label: 'Students', value: stats?.total_students },
-    { label: 'Instructors', value: stats?.total_instructors },
-    { label: 'Courses', value: stats?.total_courses },
-    { label: 'Enrollments', value: stats?.total_enrollments },
-  ];
+  const statCards = stats ? [
+    { label: 'Total Users', value: stats.users.total },
+    { label: 'Students', value: stats.users.students },
+    { label: 'Instructors', value: stats.users.instructors },
+    { label: 'Admins', value: stats.users.admins },
+    { label: 'Suspended', value: stats.users.suspended },
+    { label: 'Active Courses', value: stats.courses.total_active },
+    { label: 'Published', value: stats.courses.published },
+    { label: 'Removed', value: stats.courses.removed },
+    { label: 'Enrollments', value: stats.enrollments.total },
+    { label: 'Orders', value: stats.orders.total },
+    { label: 'Paid Orders', value: stats.orders.paid },
+    { label: 'Pending Orders', value: stats.orders.pending },
+  ] : [];
 
   return (
     <Container>
@@ -39,7 +46,7 @@ export default function AdminDashboard() {
       {loading ? (
         <div className="text-center mt-5"><Spinner animation="border" /></div>
       ) : (
-        <Row xs={2} md={5} className="g-3">
+        <Row xs={2} md={4} className="g-3">
           {statCards.map((s) => (
             <Col key={s.label}>
               <Card className="text-center shadow-sm h-100">

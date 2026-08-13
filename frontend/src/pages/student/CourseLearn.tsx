@@ -2,31 +2,40 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Card, ListGroup, ProgressBar, Spinner, Alert, Form } from 'react-bootstrap';
 import * as enrollmentsApi from '../../api/enrollments';
-import type { CourseProgress } from '../../types';
+import * as coursesApi from '../../api/courses';
+import type { CourseProgress, CourseDetail } from '../../types';
 
 export default function CourseLearn() {
   const { courseId } = useParams<{ courseId: string }>();
   const [progress, setProgress] = useState<CourseProgress | null>(null);
+  const [course, setCourse] = useState<CourseDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [completingId, setCompletingId] = useState<number | null>(null);
 
-  const loadProgress = () => {
+  const loadData = () => {
     if (!courseId) return;
     setLoading(true);
-    enrollmentsApi.getCourseProgress(Number(courseId))
-      .then((res) => setProgress(res.data))
-      .catch(() => setError('Could not load course progress. Make sure you are enrolled.'))
+    setError('');
+    Promise.all([
+      enrollmentsApi.getCourseProgress(Number(courseId)),
+      coursesApi.getCourseDetail(Number(courseId)),
+    ])
+      .then(([progressRes, courseRes]) => {
+        setProgress(progressRes.data);
+        setCourse(courseRes.data as CourseDetail);
+      })
+      .catch(() => setError('Could not load course content. Make sure you are enrolled.'))
       .finally(() => setLoading(false));
   };
 
-  useEffect(loadProgress, [courseId]);
+  useEffect(loadData, [courseId]);
 
   const handleCompleteLesson = async (lessonId: number) => {
     setCompletingId(lessonId);
     try {
       await enrollmentsApi.completeLesson(lessonId);
-      loadProgress(); // refresh to get updated percentage
+      loadData(); // refresh progress after marking complete
     } catch {
       setError('Could not mark lesson complete.');
     } finally {
@@ -36,24 +45,24 @@ export default function CourseLearn() {
 
   if (loading) return <div className="text-center mt-5"><Spinner animation="border" /></div>;
   if (error) return <Container className="mt-4"><Alert variant="danger">{error}</Alert></Container>;
-  if (!progress) return null;
-
-  const percentage = progress.percentage ??
-    (progress.total_lessons > 0
-      ? Math.round((progress.completed_lessons / progress.total_lessons) * 100)
-      : 0);
+  if (!progress || !course) return null;
 
   const completedIds = new Set(progress.completed_lesson_ids || []);
 
   return (
     <Container className="mb-5">
-      <h2>Course Progress</h2>
-      <ProgressBar now={percentage} label={`${percentage}%`} className="mb-4" style={{ height: '25px' }} />
+      <h2>{course.title}</h2>
+      <ProgressBar
+        now={progress.percent_complete}
+        label={`${progress.percent_complete}%`}
+        className="mb-3"
+        style={{ height: '25px' }}
+      />
       <p className="text-muted">
-        {progress.completed_lessons} of {progress.total_lessons} lessons completed
+        {progress.completed_count} of {progress.total_lessons} lessons completed
       </p>
 
-      {progress.modules?.map((mod) => (
+      {course.modules?.map((mod) => (
         <Card key={mod.id} className="mb-3">
           <Card.Header>{mod.title}</Card.Header>
           <ListGroup variant="flush">
@@ -79,6 +88,10 @@ export default function CourseLearn() {
           </ListGroup>
         </Card>
       ))}
+
+      {(!course.modules || course.modules.length === 0) && (
+        <p className="text-muted">This course has no content yet.</p>
+      )}
     </Container>
   );
 }
