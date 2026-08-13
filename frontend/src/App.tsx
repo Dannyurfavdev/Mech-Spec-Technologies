@@ -7,6 +7,7 @@ import Login from './pages/auth/Login';
 import ManageUsers from './pages/admin/ManageUsers';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
+import CourseLearn from './pages/student/CourseLearn';
 import MyCourses from './pages/student/MyCourses';
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -35,6 +36,11 @@ function App() {
       <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/users" element={<ManageUsers />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+      <Route path="/my-courses" element={<MyCourses />} />
+      <Route path="/my-courses/:courseId" element={<CourseLearn />} />
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={['instructor']} />}>

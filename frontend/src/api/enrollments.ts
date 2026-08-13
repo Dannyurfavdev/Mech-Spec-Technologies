@@ -8,3 +8,9 @@ export const confirmPayment = (reference: string) =>
 
 export const getMyEnrollments = () =>
   apiClient.get('/enrollments/my-enrollments/');
+
+export const completeLesson = (lessonId: number) =>
+  apiClient.post(`/enrollments/lessons/${lessonId}/complete/`);
+
+export const getCourseProgress = (courseId: number) =>
+  apiClient.get(`/enrollments/courses/${courseId}/progress/`);

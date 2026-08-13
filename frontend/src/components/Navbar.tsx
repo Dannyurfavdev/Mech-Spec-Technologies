@@ -20,7 +20,7 @@ export default function AppNavbar() {
   return (
     <BSNavbar bg="dark" variant="dark" expand="lg" className="mb-4">
       <Container>
-        <BSNavbar.Brand as={Link} to="/">Mech-Spec</BSNavbar.Brand>
+        <BSNavbar.Brand as={Link} to="/">LMS|MECH-SPEC</BSNavbar.Brand>
         <BSNavbar.Toggle aria-controls="main-navbar" />
         <BSNavbar.Collapse id="main-navbar">
           <Nav className="me-auto">

@@ -30,9 +30,9 @@ export default function Home() {
   return (
     <Container>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Browse Courses</h2>
+      <h2 style={{ color: 'black' }}>Browse Courses</h2>
         <Form.Select
-          style={{ width: '220px' }}
+          style={{ width: '220px'}}
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >

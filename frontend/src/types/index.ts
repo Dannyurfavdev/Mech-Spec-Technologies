@@ -67,3 +67,19 @@ export interface DraftModule {
   title: string;
   lessons: { id: number; title: string }[];
 }
+
+export interface EnrolledCourse {
+  id: number;          // enrollment id
+  course: number;       // course id
+  course_title?: string;
+  course_price?: number;
+  enrolled_at?: string;
+}
+
+export interface CourseProgress {
+  total_lessons: number;
+  completed_lessons: number;
+  percentage?: number;
+  modules?: Module[];
+  completed_lesson_ids?: number[];
+}
