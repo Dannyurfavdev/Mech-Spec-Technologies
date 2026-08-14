@@ -1,0 +1,47 @@
+// Custom color palette — Mech-Spec Technologies (Blue/Teal)
+$primary:   #1E6FD9;  // main blue
+$secondary: #2BA9C9;  // teal accent
+$success:   #2FBF71;
+$danger:    #E5484D;
+$warning:   #F5A623;
+$info:      #7FD1CE;
+$light:     #F0FAFA;  // faint teal-white
+$dark:      #0F2A43;  // deep navy
+
+$body-bg:     #FAFCFE;
+$body-color:  #1A2B3D;
+
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
+
+$border-radius:      0.6rem;
+$border-radius-lg:    0.8rem;
+$border-radius-sm:    0.4rem;
+
+$navbar-dark-color:   rgba(255, 255, 255, 0.85);
+$navbar-dark-hover-color: #ffffff;
+
+@import 'bootstrap/scss/bootstrap';
+
+// Small custom touches beyond variables
+.navbar {
+  background: linear-gradient(135deg, $dark 0%, $primary 100%) !important;
+}
+
+.card {
+  border: 1px solid rgba($primary, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba($primary, 0.12) !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, darken($primary, 8%) 0%, $primary 100%);
+}
