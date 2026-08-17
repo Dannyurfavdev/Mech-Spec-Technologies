@@ -30,8 +30,8 @@ export default function AppNavbar() {
       </BSNavbar.Brand>
         <BSNavbar.Toggle aria-controls="main-navbar" />
         <BSNavbar.Collapse id="main-navbar">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Courses</Nav.Link>
+          <Nav className="mx-auto">
+            <Nav.Link as={Link} to="/" style={{ fontSize: '19px', fontWeight: 600 }}>Courses</Nav.Link>
             {user &&  <Nav.Link as={Link} to={dashboardLink()}>Dashboard</Nav.Link> }
           </Nav>
           <Nav className="align-items-center gap-2">

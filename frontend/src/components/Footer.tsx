@@ -55,7 +55,7 @@ export default function Footer() {
 
         <div className="d-flex justify-content-between flex-wrap text-white-50 small">
           <span>© {new Date().getFullYear()} Mech-Spec Technologies. All rights reserved.</span>
-          <span>Built with care. 2026</span>
+          <span>Built with care</span>
         </div>
       </Container>
     </footer>
