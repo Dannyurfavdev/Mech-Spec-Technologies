@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Spinner, Alert, ProgressBar, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Spinner, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import * as enrollmentsApi from '../../api/enrollments';
 import type { EnrolledCourse } from '../../types';

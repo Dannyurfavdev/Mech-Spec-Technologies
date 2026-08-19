@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Table, Spinner, Alert, Badge } from 'react-bootstrap';
+import { Container, Table, Spinner, Alert } from 'react-bootstrap';
 import * as instructorApi from '../../api/instructorCourses';
 import type { EnrolledStudent } from '../../types';
 

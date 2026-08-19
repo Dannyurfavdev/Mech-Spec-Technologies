@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Table, Badge, Spinner, Alert } from 'react-bootstrap';
-import * as instructorApi from '../../api/instructorCourses';
+//import * as instructorApi from '../../api/instructorCourses';
 import apiClient from '../../api/client';
 import type { Course } from '../../types';
 
